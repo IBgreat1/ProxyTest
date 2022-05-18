@@ -1,6 +1,5 @@
 package main
 
-fmt.Print("START")
 import (
 	"log"
 	"time"
