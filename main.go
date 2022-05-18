@@ -44,7 +44,7 @@ func requestHandler(ctx *fasthttp.RequestCtx) {
 		return
 	}
 
-	response,boolCheck := makeRequest(ctx, 1)
+	response, boolCheck := makeRequest(ctx, 1)
 	fmt.Print(boolCheck)
 	defer fasthttp.ReleaseResponse(response)
 
@@ -56,13 +56,13 @@ func requestHandler(ctx *fasthttp.RequestCtx) {
 	})
 }
 
-func makeRequest(ctx *fasthttp.RequestCtx, attempt int) *fasthttp.Response bool {
+func makeRequest(ctx *fasthttp.RequestCtx, attempt int) (*fasthttp.Response, bool) {
 	if attempt > retries {
 		resp := fasthttp.AcquireResponse()
 		resp.SetBody([]byte("Proxy failed to connect. Please try again."))
 		resp.SetStatusCode(500)
 
-		return resp true
+		return resp, true
 	}
 
 	req := fasthttp.AcquireRequest()
@@ -88,6 +88,6 @@ func makeRequest(ctx *fasthttp.RequestCtx, attempt int) *fasthttp.Response bool 
 		fasthttp.ReleaseResponse(resp)
         return makeRequest(ctx, attempt + 1)
     } else {
-		return resp true
+		return resp, true
 	}
 }
