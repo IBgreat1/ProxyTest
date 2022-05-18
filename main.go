@@ -45,10 +45,10 @@ func requestHandler(ctx *fasthttp.RequestCtx) {
 	}
 
 	response := makeRequest(ctx, 1)
-	fmt.Print(response)
 	defer fasthttp.ReleaseResponse(response)
 
 	body := response.Body()
+	fmt.Print(body)
 	ctx.SetBody(body)
 	ctx.SetStatusCode(response.StatusCode())
 	response.Header.VisitAll(func (key, value []byte) {
