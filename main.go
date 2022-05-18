@@ -1,5 +1,6 @@
 package main
 
+fmt.Print("START")
 import (
 	"log"
 	"time"
@@ -69,8 +70,10 @@ func makeRequest(ctx *fasthttp.RequestCtx, attempt int) *fasthttp.Response {
 	req.Header.SetMethod(string(ctx.Method()))
 	url := strings.SplitN(string(ctx.Request.Header.RequestURI())[1:], "/", 2)
 	if url[0] == "catalog" {
+		fmt.Print("https://roblox.com/"+ url[0] + "/" + url[1])
 		req.SetRequestURI("https://roblox.com/"+ url[0] + "/" + url[1])
 	} else { 
+		fmt.Print("https://" + url[0] + ".roblox.com/" + url[1])
 		req.SetRequestURI("https://" + url[0] + ".roblox.com/" + url[1])
 	}
 	req.SetBody(ctx.Request.Body())
