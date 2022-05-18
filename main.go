@@ -70,7 +70,7 @@ func makeRequest(ctx *fasthttp.RequestCtx, attempt int) *fasthttp.Response {
 	req.Header.SetMethod(string(ctx.Method()))
 	url := strings.SplitN(string(ctx.Request.Header.RequestURI())[1:], "/", 2)
 	if url[0] == "catalog" {
-		req.SetRequestURI("https://rolimons.com/items/" + url[1])
+		req.SetRequestURI("https://rolimons.com/item/" + url[1])
 	} else { 
 		req.SetRequestURI("https://" + url[0] + ".roblox.com/" + url[1])
 	}
