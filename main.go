@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"time"
 	"os"
@@ -83,7 +82,7 @@ func makeRequest(ctx *fasthttp.RequestCtx, attempt int) *fasthttp.Response {
 	req.Header.Del("Roblox-Id")
 	resp := fasthttp.AcquireResponse()
 
-	err := client.Get(req, resp)
+	err := client.Do(req, resp)
 
     if err != nil {
 		fasthttp.ReleaseResponse(resp)
