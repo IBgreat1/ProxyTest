@@ -48,7 +48,8 @@ func requestHandler(ctx *fasthttp.RequestCtx) {
 	defer fasthttp.ReleaseResponse(response)
 
 	body := response.Body()
-	fmt.Print(body)
+	
+	
 	ctx.SetBody(body)
 	ctx.SetStatusCode(response.StatusCode())
 	response.Header.VisitAll(func (key, value []byte) {
@@ -70,7 +71,7 @@ func makeRequest(ctx *fasthttp.RequestCtx, attempt int) *fasthttp.Response {
 	req.Header.SetMethod(string(ctx.Method()))
 	url := strings.SplitN(string(ctx.Request.Header.RequestURI())[1:], "/", 2)
 	if url[0] == "catalog" {
-		req.SetRequestURI("https://rolimons.com/item/" + url[1])
+		req.SetRequestURI("https://roblox.com/catalog/" + url[1])
 	} else { 
 		req.SetRequestURI("https://" + url[0] + ".roblox.com/" + url[1])
 	}
@@ -82,7 +83,7 @@ func makeRequest(ctx *fasthttp.RequestCtx, attempt int) *fasthttp.Response {
 	req.Header.Del("Roblox-Id")
 	resp := fasthttp.AcquireResponse()
 
-	err := client.Do(req, resp)
+	err := client.Get(req, resp)
 
     if err != nil {
 		fasthttp.ReleaseResponse(resp)
